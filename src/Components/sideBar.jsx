@@ -6,11 +6,11 @@ const sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className={`h-screen ${isOpen ? 'w-64' : 'w-20'} bg-[#202123] text-white flex flex-col transition-all duration-300`}>
+    <div className={`h-screen ${isOpen ? 'w-64' : 'w-20'} bg-[#141414] text-white flex flex-col transition-all duration-300 z-20`}>
       
       <div className="flex items-center  p-3 border-b border-gray-700">
         {isOpen&&<img src={mainlogo} alt="logo" className='size-8'/>}
-        <h1 className={`text-[18px] ml-1 font-semibold ${!isOpen && 'hidden'}`}>ChatGPT Clone</h1>
+        <h1 className={`text-[16px] ml-1 font-semibold ${!isOpen && 'hidden'}`}>ChatGPT</h1>
         <button className={`${isOpen && 'ml-10'}`} onClick={() => setIsOpen(!isOpen)}>
           <Menu size={24} />
         </button>
