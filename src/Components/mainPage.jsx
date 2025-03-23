@@ -20,7 +20,7 @@ const MainPage = () => {
   };
 
   return (
-    <div className="flex h-screen bg-[#282828] w-full">
+    <div className="flex h-screen bg-[#282828] w-full pt-[58px]">
   <div className="flex-1 flex flex-col relative">
     {/* Chat Display */}
     <div
@@ -37,7 +37,7 @@ const MainPage = () => {
     </div>
 
     {/* Input Box (Fixed at Bottom) */}
-    <div className="absolute bottom-8 left-[200px] right-[160px] pt-1 pb-10 border rounded-2xl border-gray-600 flex items-center z-10">
+    <div className="absolute bottom-8 left-[200px] right-[160px]  pb-10 border rounded-2xl border-gray-600 flex items-center z-10">
       <input
         type="text"
         value={input}
