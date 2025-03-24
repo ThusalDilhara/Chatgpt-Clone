@@ -6,7 +6,7 @@ const sidebar = ({isOpen,setIsOpen}) => {
   
 
   return (
-    <div className={`h-screen ${isOpen ? 'w-64' : 'w-20'} bg-[#141414] text-white flex flex-col transition-all duration-300 z-20`}>
+    <div className={`h-screen ${isOpen ? 'w-64' : 'w-20'} bg-[#1a1a1a] text-white flex flex-col transition-all duration-300 z-20`}>
       
       <div className="flex items-center  p-3 ">
         {isOpen&&<img src={mainlogo} alt="logo" className='size-8'/>}
