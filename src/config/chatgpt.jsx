@@ -1,15 +1,6 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import fs from "node:fs";
 
-
-
-
-
-const {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} = require("@google/generative-ai");
-const fs = require("node:fs");
-const mime = require("mime-types");
 
 const apiKey="AIzaSyBApZOd5lPkswPNjDVaKPJOIhYMZWWg_Fk";
 
@@ -29,7 +20,12 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
+
+
 async function run(prompt) {
+
+  
+
   const chatSession = model.startChat({
     generationConfig,
     history: [
@@ -53,7 +49,7 @@ async function run(prompt) {
       }
     }
   }
-  console.log(result.response.text());
+  return result.response.text();
 }
 
 export default run;
