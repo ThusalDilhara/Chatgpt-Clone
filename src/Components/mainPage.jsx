@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { Send } from 'lucide-react';
+import { Send,CircleStop } from 'lucide-react';
 import { Context } from '../context/context';
 
+
 const MainPage = () => {
-  const { input, setInput, onsent, chatHistory } = useContext(Context);
+  const { input, setInput, onsent, chatHistory,loading} = useContext(Context);
 
   return (
     <div className="flex h-screen bg-[#282828] w-full pt-[58px]">
@@ -15,13 +16,22 @@ const MainPage = () => {
               key={index}
               className={`mr-40 p-3 rounded-2xl ${
                 chat.sender === 'user'
-                  ? 'bg-[#3c3c3c] max-w-xl ml-auto ' // User message (on the right with margin)
-                  : 'bg-transparent' // Response (full width)
+                  ? 'bg-[#3c3c3c] max-w-xl ml-auto '
+                  : 'bg-transparent'
               }`}
             >
               <p dangerouslySetInnerHTML={{ __html: chat.message }}></p>
             </div>
           ))}
+
+             {loading && (
+               <div className="flex space-x-2 items-center p-3">
+                 <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.2s]"></div>
+                 <div className="w-2 h-2 bg-white rounded-full animate-bounce [animation-delay:-0.1s]"></div>
+                 <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+               </div>
+             )}
+
         </div>
 
         {/* Input Box (Fixed at Bottom) */}
@@ -34,12 +44,15 @@ const MainPage = () => {
             className="flex-1 p-3 bg-transparent text-white outline-none"
             onKeyDown={(e) => e.key === 'Enter' && onsent()}
           />
-          <button
+          {loading ?(<button
+          
+            className="p-3 text-white hover:bg-[#3c3c3c] rounded-lg"
+          ><CircleStop size={24}/></button>):(<button
             onClick={onsent}
             className="p-3 text-white hover:bg-[#3c3c3c] rounded-lg"
           >
-            <Send size={24} />
-          </button>
+           <Send size={24} />
+          </button>)}
         </div>
 
         <p className="text-white text-xs text-center absolute bottom-0 left-0 right-0">
