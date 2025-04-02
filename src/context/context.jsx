@@ -7,6 +7,7 @@ const ContextProvider = (props) => {
   const [input, setInput] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
   const [loading,setLoading]=useState(false);
+  const [showResults, setShowResults] = useState(false);
 
   const delaypara = (index, nextword) => {
     setTimeout(() => {
@@ -41,6 +42,7 @@ const ContextProvider = (props) => {
     try {
 
       const result = await run(userPrompt);
+      setShowResults(true);
       const responseArray=result.split("**");
       let newResponse="";
       responseArray.forEach((text, index) => {
@@ -70,6 +72,7 @@ const ContextProvider = (props) => {
     setChatHistory,
     loading,
     setLoading,
+    showResults,
   };
 
   return <Context.Provider value={contextValue}>{props.children}</Context.Provider>;

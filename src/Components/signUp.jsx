@@ -5,20 +5,20 @@ import googleIcon from "../assets/google1.png";
 import microsoftIcon from "../assets/microsoft.png";
 import appleIcon from "../assets/apple.png";
 
-const SignIn = () => {
+const SignUp = () => {
   const navigate = useNavigate();
 
-  
+ 
   const client = new Client()
-    .setEndpoint("https://cloud.appwrite.io/v1")
+    .setEndpoint("https://cloud.appwrite.io/v1") 
     .setProject("67eabd47002f05d1b097");
 
   const account = new Account(client);
 
-  // Google Sign-In function 
+  // Google Sign-In
   const signInWithGoogle = async () => {
     try {
-      account.createOAuth2Session("google", "http://localhost:5173/home","http://localhost:5173");
+      account.createOAuth2Session("google", "http://localhost:5173/home");
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -42,7 +42,7 @@ const SignIn = () => {
       <h1 className="font-bold text-2xl p-[10px]">ChatGPT</h1> 
       <div className="flex flex-col items-center justify-center mt-24">
       <div className=" p-10 shadow-sm  max-w-2xl  text-[#282828] text-center">
-        <h1 className="text-3xl font-semibold mb-6">Welcome back</h1>
+        <h1 className="text-3xl font-semibold mb-6">Create an Account</h1>
         <button
           onClick={signInWithGoogle}
           className="flex items-center justify-center bg-transparent hover:bg-[#f1e2e2]  pr-6 py-2 rounded-md transition border border-[#d8caca] w-[350px]"
@@ -76,7 +76,7 @@ const SignIn = () => {
           />
           Continue with Apple
         </button>
-        <p className="mt-4 text-sm">Don't have an account?<a href="/signup" className="font-semibold hover:font-bold"> Sign Up</a></p>
+        <p className="mt-4 text-sm">Already have an account?<a href="/" className="font-semibold hover:font-bold"> Login</a></p>
       </div>
       </div>
       <div className="flex justify-center items-center mt-25">
@@ -89,4 +89,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

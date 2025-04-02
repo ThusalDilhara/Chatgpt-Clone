@@ -3,6 +3,7 @@ import SideBar from './Components/sideBar'
 import MainPage from './Components/mainPage'
 import Navbar from './Components/navbar'
 import SignIn from './Components/signIn'
+import SignUp from './Components/signUp'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             }
           />
           <Route path="/" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -33,7 +33,7 @@ async function run(prompt) {
   });
 
   const result = await chatSession.sendMessage(prompt);
-  // TODO: Following code needs to be updated for client-side apps.
+  
   const candidates = result.response.candidates;
   for(let candidate_index = 0; candidate_index < candidates.length; candidate_index++) {
     for(let part_index = 0; part_index < candidates[candidate_index].content.parts.length; part_index++) {
