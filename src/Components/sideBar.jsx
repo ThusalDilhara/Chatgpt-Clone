@@ -18,7 +18,7 @@ const sidebar = ({isOpen,setIsOpen}) => {
   const logout = async () => {
     try {
       const session = await account.get();
-      console.log("User session:", session);
+      
   
       await account.deleteSessions(); 
       navigate("/");

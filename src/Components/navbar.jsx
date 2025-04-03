@@ -15,6 +15,8 @@ const Navbar = ({ isOpen }) => {
         const user= account.get();
 
         if((await user).name){
+          
+          
           const username= (await user).name.slice(0,2).toUpperCase();
           setUserInital(username);
         }
