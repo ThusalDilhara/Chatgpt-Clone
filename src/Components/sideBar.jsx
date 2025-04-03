@@ -1,10 +1,30 @@
 import { useState } from 'react';
 import { Menu, Plus, MessageCircle, LogOut } from 'lucide-react';
 import mainlogo from '../assets/chatgpt2.png';
+import { account } from '../config/appwriteConfig';
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 const sidebar = ({isOpen,setIsOpen}) => {
   
+  const navigate = useNavigate();
 
+  
+  const logout = async () => {
+    try {
+      const session = await account.get();
+      console.log("User session:", session);
+  
+      await account.deleteSessions(); 
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  
   return (
     <div className={`h-screen ${isOpen ? 'w-64' : 'w-20'} bg-[#1a1a1a] text-white flex flex-col transition-all duration-300 z-20`}>
       
@@ -30,7 +50,7 @@ const sidebar = ({isOpen,setIsOpen}) => {
       </div>
 
      
-      <button className="flex items-center gap-3 p-3 hover:bg-[#3c3c3c]">
+      <button onClick={logout} className="flex items-center gap-3 p-3 hover:bg-[#3c3c3c]">
         <LogOut size={20} />
         {isOpen && <span>Logout</span>}
       </button>

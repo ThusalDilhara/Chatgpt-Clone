@@ -4,16 +4,10 @@ import { Client, Account } from "appwrite";
 import googleIcon from "../assets/google1.png";
 import microsoftIcon from "../assets/microsoft.png";
 import appleIcon from "../assets/apple.png";
+import { account } from "../config/appwriteConfig";
 
 const SignIn = () => {
   const navigate = useNavigate();
-
-  
-  const client = new Client()
-    .setEndpoint("https://cloud.appwrite.io/v1")
-    .setProject("67eabd47002f05d1b097");
-
-  const account = new Account(client);
 
   // Google Sign-In function 
   const signInWithGoogle = async () => {
