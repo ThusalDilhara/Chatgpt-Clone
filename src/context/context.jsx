@@ -126,10 +126,26 @@ const ContextProvider = (props) => {
         
         const responseArray = result.split("**");
         let newResponse = "";
+        
+        // Handle bold text
         responseArray.forEach((text, index) => {
             newResponse += index % 2 === 1 ? `<b>${text}</b>` : text;
         });
-        let newResponse2 = newResponse.split("*").join("<br/>");
+        
+        // Handle italic text properly
+        let newResponse2 = "";
+        let italicToggle = false;
+        newResponse.split("*").forEach((text) => {
+            newResponse2 += italicToggle ? `<i>${text}</i>` : text;
+            italicToggle = !italicToggle;
+        });
+        
+        // Handle line breaks
+        newResponse2 = newResponse2.replace(/\n/g, "<br/>");
+        
+        // Handle code blocks
+        newResponse2 = newResponse2.replace(/```([^`]+)```/g, "<pre>$1</pre>"); 
+        newResponse2 = newResponse2.replace(/`([^`]+)`/g, "<code>$1</code>");
         
        
         setChatHistory((prev) => [
