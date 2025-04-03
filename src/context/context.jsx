@@ -59,7 +59,15 @@ const ContextProvider = (props) => {
 
        try{
           const response= await databases.getDocument(databaseId,collectionId,chatID);
-          setChatHistory(response.messages);
+
+          const formattedMessages = response.messages.map((msg) => {
+            const [sender, ...messageParts] = msg.split(": ");
+            return {
+                sender: sender.trim(), 
+                message: messageParts.join(": ").trim(),
+            };
+          });
+          setChatHistory(formattedMessages);
           setCurrentChatId(chatID);
           setShowResults(true);
           setLoading(false);
@@ -90,7 +98,7 @@ const ContextProvider = (props) => {
   
         return newHistory;
       });
-    }, 20 * index);
+    }, 10 * index);
   };
 
   // new chat window 
@@ -122,12 +130,16 @@ const ContextProvider = (props) => {
             newResponse += index % 2 === 1 ? `<b>${text}</b>` : text;
         });
         let newResponse2 = newResponse.split("*").join("<br/>");
-
+        
        
         setChatHistory((prev) => [
             ...prev,
             { sender: 'gpt', message: newResponse2 } // Append GPT response
         ]);
+
+        newResponse2.split("").forEach((char, index) => {
+          delaypara(index, char);
+        });
 
         // Convert messages to string for database storage
         const updatedChatHistory = [
