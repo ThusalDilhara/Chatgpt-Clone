@@ -29,6 +29,12 @@ const ContextProvider = (props) => {
       });
     }, 20 * index);
   };
+
+  const newChat=()=>{
+      setLoading(false);
+      setShowResults(false);
+      setChatHistory([]);
+  }
   
 
   const onsent = async () => {
@@ -73,6 +79,7 @@ const ContextProvider = (props) => {
     loading,
     setLoading,
     showResults,
+    newChat,
   };
 
   return <Context.Provider value={contextValue}>{props.children}</Context.Provider>;

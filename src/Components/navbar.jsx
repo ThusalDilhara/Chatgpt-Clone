@@ -35,7 +35,7 @@ const Navbar = ({ isOpen }) => {
         </div>
 
         {userInitial?
-          <div className="w-8 h-8 flex items-center justify-center rounded-full bg-pink-400  text-white text-sm font-light ">
+          <div className="w-8 h-8 flex items-center justify-center rounded-full bg-pink-400  text-white text-sm font-light hover:border border-white ">
           {userInitial}
         </div>
         

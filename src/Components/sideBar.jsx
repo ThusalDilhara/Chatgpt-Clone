@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Menu, Plus, MessageCircle, LogOut } from 'lucide-react';
 import mainlogo from '../assets/chatgpt2.png';
 import { account } from '../config/appwriteConfig';
 import { useNavigate } from "react-router-dom";
+import { Context } from '../context/context';
 
 
 
@@ -11,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 const sidebar = ({isOpen,setIsOpen}) => {
   
   const navigate = useNavigate();
+  const {newChat} =useContext(Context);
 
   
   const logout = async () => {
@@ -37,7 +39,7 @@ const sidebar = ({isOpen,setIsOpen}) => {
       </div>
 
       
-      <button className="flex items-center gap-3 p-3 hover:bg-[#3c3c3c]">
+      <button onClick={newChat} className="flex items-center gap-3 p-3 hover:bg-[#3c3c3c]">
         <Plus size={20} />
         {isOpen && <span>New Chat</span>}
       </button>
