@@ -12,7 +12,7 @@ import { Context } from '../context/context';
 const sidebar = ({isOpen,setIsOpen}) => {
   
   const navigate = useNavigate();
-  const {newChat} =useContext(Context);
+  const {newChat, loadChat, recentChats} =useContext(Context);
 
   
   const logout = async () => {
@@ -45,10 +45,17 @@ const sidebar = ({isOpen,setIsOpen}) => {
       </button>
 
       <div className="flex-1 overflow-y-auto">
-        <div className="p-3 flex items-center gap-3 hover:bg-[#3c3c3c] cursor-pointer">
+        {recentChats.map((chat,index)=>(
+
+          <div key={index} className="p-3 flex items-center gap-3 hover:bg-[#3c3c3c] cursor-pointer text-sm" onClick={() => loadChat(chat.$id)}>
           <MessageCircle size={20} />
-          {isOpen && <span>Recent Chat</span>}
-        </div>
+          {isOpen && <span>{chat.title}</span>}
+         
+          </div>
+        ))}
+          
+      
+        
       </div>
 
      

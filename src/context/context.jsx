@@ -27,7 +27,7 @@ const ContextProvider = (props) => {
         
             const userData = await account.get();
             setUser(userData);
-            console.log("user data", userData.$id);
+            fetchChats(userData.$id);
           
       }
       catch(error){
@@ -40,20 +40,35 @@ const ContextProvider = (props) => {
    },[]);
    
   //  fetch all chats
-  //  const fetchChats=async (userId)=>{
+   const fetchChats=async (userId)=>{
 
-  //   try{
-  //     const response = await databases.listDocuments(databaseId,collectionId,[
-  //       Query.equal("userID", userId),
-  //       Query.orderDesc("$createdAt"),
-  //     ])
-  //     setRecentChats(response.documents);
-  //   }catch(error){
-  //     console.log("Error fetching user data:", error);
-  //   }
-  //  }
+    try{
+      const response = await databases.listDocuments(databaseId,collectionId,[
+        Query.equal("userID", userId),
+        Query.orderDesc("$createdAt"),
+      ])
+      setRecentChats(response.documents);
+     
+    }catch(error){
+      console.log("Error fetching user data:", error);
+    }
+   }
 
+    // load the chat when clicked 
+    const loadChat=async (chatID)=>{
 
+       try{
+          const response= await databases.getDocument(databaseId,collectionId,chatID);
+          setChatHistory(response.messages);
+          setCurrentChatId(chatID);
+          setShowResults(true);
+          setLoading(false);
+       }
+       catch (error){
+          console.log("Error loading chat:", error);
+
+       }
+    }
 
   
   // typing effect for gpt response
@@ -83,6 +98,7 @@ const ContextProvider = (props) => {
       setLoading(false);
       setShowResults(false);
       setChatHistory([]);
+      setCurrentChatId(null);
   }
   
 
@@ -128,7 +144,11 @@ const ContextProvider = (props) => {
                 });
             } else {
                 // Create a new chat if not exits
-                const title = userPrompt.slice(0, 20) + "...";
+                let title = userPrompt;
+                if(title.length > 20) {
+                  title = title.slice(0,20) + "...";
+                }
+                
                 const newChat = await databases.createDocument(databaseId, collectionId, ID.unique(), {
                     title: title,
                     messages: updatedChatHistory,
@@ -136,7 +156,7 @@ const ContextProvider = (props) => {
                 });
 
                 setCurrentChatId(newChat.$id);
-                console.log("New chat created:", newChat);
+                fetchChats(user.$id);
             }
         }
     } catch (error) {
@@ -156,6 +176,8 @@ const ContextProvider = (props) => {
     setLoading,
     showResults,
     newChat,
+    loadChat,
+    recentChats
   };
 
   return <Context.Provider value={contextValue}>{props.children}</Context.Provider>;
