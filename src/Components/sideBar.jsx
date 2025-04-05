@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Menu, Plus, MessageCircle, LogOut } from 'lucide-react';
+import { Menu, Plus, MessageCircle, LogOut,Trash2} from 'lucide-react';
 import mainlogo from '../assets/chatgpt2.png';
 import { account } from '../config/appwriteConfig';
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,9 @@ import { Context } from '../context/context';
 
 const sidebar = ({isOpen,setIsOpen}) => {
   
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   const navigate = useNavigate();
-  const {newChat, loadChat, recentChats} =useContext(Context);
+  const {newChat, loadChat, recentChats,deleteChat} =useContext(Context);
 
   
   const logout = async () => {
@@ -48,7 +49,16 @@ const sidebar = ({isOpen,setIsOpen}) => {
         {recentChats.map((chat,index)=>(
 
           <div key={index} className="p-3 flex items-center gap-3 hover:bg-[#3c3c3c] cursor-pointer text-sm" onClick={() => loadChat(chat.$id)}>
-          <MessageCircle size={20} />
+            <div
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className="cursor-pointer transition-colors duration-300">
+                {hoveredIndex === index ? (
+                  <Trash2 size={20} className='text-red-500' onClick={()=>deleteChat(chat.$id)}/>
+                ) : (
+                  <MessageCircle size={20} />
+                )}
+             </div>
           {isOpen && <span>{chat.title}</span>}
          
           </div>

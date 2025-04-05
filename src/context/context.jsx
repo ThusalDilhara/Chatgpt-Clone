@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from 'react';
 import run from '../config/chatgpt';
 import { account,client } from '../config/appwriteConfig';
 import { Databases, ID, Query } from 'appwrite';
+import Swal from 'sweetalert2';
+import '../index.css'
 
 export const Context = createContext();
 
@@ -46,6 +48,7 @@ const ContextProvider = (props) => {
       const response = await databases.listDocuments(databaseId,collectionId,[
         Query.equal("userID", userId),
         Query.orderDesc("$createdAt"),
+        Query.limit(10)
       ])
       setRecentChats(response.documents);
      
@@ -71,11 +74,46 @@ const ContextProvider = (props) => {
           setCurrentChatId(chatID);
           setShowResults(true);
           setLoading(false);
+          
        }
        catch (error){
           console.log("Error loading chat:", error);
+          
 
        }
+    }
+
+    //delete the chat when clicked on trash bucket
+    const deleteChat = async (chatID) => {
+      try {
+        const result = await Swal.fire({
+          title: 'Delete Chat?',
+          text: 'You will not be able to recover this chat!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+          background:'#3a3a3a',
+          color:'white',
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          width: '350px',
+          customClass: {
+            popup: 'custom-swal'
+            
+          }
+          
+        });
+    
+        if (!result.isConfirmed) return;
+    
+        const deletedResponse = await databases.deleteDocument(databaseId, collectionId, chatID);
+        console.log("Deleted chat:", deletedResponse);
+        setShowResults(false);
+        fetchChats(user.$id);
+      } catch (error) {
+        console.log("Error deleting chat", error);
+      }
     }
 
   
@@ -121,6 +159,7 @@ const ContextProvider = (props) => {
 
     try {
         const result = await run(userPrompt);
+        setLoading(false);
         setShowResults(true);
 
         
@@ -132,9 +171,9 @@ const ContextProvider = (props) => {
             newResponse += index % 2 === 1 ? `<b>${text}</b>` : text;
         });
         
-        // Handle italic text properly
+       
         let newResponse2="";
-        // Handle line breaks
+        // Handle line breaks for global.that means all in the string.
         newResponse2 = newResponse.replace(/\n/g, "<br/>");
         
         // Handle code blocks
@@ -194,7 +233,8 @@ const ContextProvider = (props) => {
     showResults,
     newChat,
     loadChat,
-    recentChats
+    recentChats,
+    deleteChat
   };
 
   return <Context.Provider value={contextValue}>{props.children}</Context.Provider>;
