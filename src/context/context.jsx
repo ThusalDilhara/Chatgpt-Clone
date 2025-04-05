@@ -98,7 +98,7 @@ const ContextProvider = (props) => {
   
         return newHistory;
       });
-    }, 10 * index);
+    }, 2 * index);
   };
 
   // new chat window 
@@ -133,26 +133,15 @@ const ContextProvider = (props) => {
         });
         
         // Handle italic text properly
-        let newResponse2 = "";
-        let italicToggle = false;
-        newResponse.split("*").forEach((text) => {
-            newResponse2 += italicToggle ? `<i>${text}</i>` : text;
-            italicToggle = !italicToggle;
-        });
-        
+        let newResponse2="";
         // Handle line breaks
-        newResponse2 = newResponse2.replace(/\n/g, "<br/>");
+        newResponse2 = newResponse.replace(/\n/g, "<br/>");
         
         // Handle code blocks
         newResponse2 = newResponse2.replace(/```([^`]+)```/g, "<pre>$1</pre>"); 
         newResponse2 = newResponse2.replace(/`([^`]+)`/g, "<code>$1</code>");
         
-       
-        setChatHistory((prev) => [
-            ...prev,
-            { sender: 'gpt', message: newResponse2 } // Append GPT response
-        ]);
-
+      
         newResponse2.split("").forEach((char, index) => {
           delaypara(index, char);
         });
