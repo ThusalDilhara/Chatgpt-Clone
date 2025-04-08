@@ -24,7 +24,7 @@ const MainPage = () => {
           {loading ?(<button
           
             className="p-3 text-white hover:bg-[#3c3c3c] rounded-lg"
-          ><CircleStop size={24}/></button>):(<button
+          ><CircleStop size={26}/></button>):(<button
             onClick={onsent}
             className="p-3 text-white hover:bg-[#3c3c3c] rounded-lg"
           >
