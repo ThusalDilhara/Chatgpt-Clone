@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Send,CircleStop } from 'lucide-react';
 import { Context } from '../context/context';
 
-
+// h
 const MainPage = () => {
   const { input, setInput, onsent, chatHistory,loading,showResults} = useContext(Context);
 
