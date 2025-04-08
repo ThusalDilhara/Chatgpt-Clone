@@ -24,7 +24,7 @@ FROM nginx:1.23-alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the React build from the build stage to Nginx's HTML directory
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy the custom Nginx configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
