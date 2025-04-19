@@ -10,7 +10,7 @@ const MainPage = () => {
     <>
     {!showResults?
       <div className="flex h-screen bg-[#282828] w-full pt-[58px] relative items-center justify-center pb-60">
-         <h1 className='text-4xl text-white font-semibold'>What Can I Help With?</h1>
+         <h1 className='text-4xl text-white font-semibold'>What Can I Help With??</h1>
 
          <div className="absolute bottom-60 left-[200px] right-[160px] pb-10 border rounded-2xl border-gray-600 flex items-center z-10">
           <input
