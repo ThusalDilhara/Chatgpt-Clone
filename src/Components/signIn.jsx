@@ -12,7 +12,7 @@ const SignIn = () => {
   // Google Sign-In function 
   const signInWithGoogle = async () => {
     try {
-      account.createOAuth2Session("google", "https://chatgptclone.me/home","https://chatgptclone.me/");
+      account.createOAuth2Session("google", "http://chatgptclone.me/home","http://chatgptclone.me/");
     } catch (error) {
       console.error("Login failed:", error);
     }
