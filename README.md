@@ -37,10 +37,6 @@ Implements secure **Google OAuth2 Authentication** and follows production-grade 
       ```
 2. Configure the **Appwrite Project OAuth** settings to match the Google Client ID and Secret.
 
-3. Your sign-in flow uses:
-```javascript
-account.createOAuth2Session("google", "http://chatgptclone.me/home", "http://chatgptclone.me/");
-
 
 ⚡ CI/CD Flow
 Push code to main branch.
