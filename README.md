@@ -41,3 +41,26 @@ Implements secure **Google OAuth2 Authentication** and follows production-grade 
 ```javascript
 account.createOAuth2Session("google", "http://chatgptclone.me/home", "http://chatgptclone.me/");
 
+
+⚡ CI/CD Flow
+Push code to main branch.
+
+GitHub Actions trigger:
+
+Runs tests.
+
+Builds Docker image.
+
+Deploys to AWS EC2 instance.
+
+Production goes live on https://chatgptclone.me within minutes!
+
+💡 Key Learning Outcomes
+Mastered OAuth2 flows with Appwrite and Google Cloud.
+
+Set up real-world cloud deployment on AWS EC2.
+
+Implemented CI/CD automation with Docker & GitHub Actions.
+
+Solved production-grade redirect_uri_mismatch and OAuth security policies.
+
