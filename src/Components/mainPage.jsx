@@ -1,10 +1,19 @@
-import { useContext } from 'react';
+import { useContext,useEffect,useRef } from 'react';
 import { Send,CircleStop } from 'lucide-react';
 import { Context } from '../context/context';
 
 // h
 const MainPage = () => {
   const { input, setInput, onsent, chatHistory,loading,showResults} = useContext(Context);
+  const messageEndRef = useRef(null);
+
+  const scrollToBottom =()=>{
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  useEffect(()=>{
+    scrollToBottom();
+  },[loading,showResults]);
 
   return (
     <>
@@ -63,6 +72,8 @@ const MainPage = () => {
                </div>
              )}
 
+          <div ref={messageEndRef} />
+
         </div>
 
         {/* Input Box (Fixed at Bottom) */}
@@ -72,6 +83,7 @@ const MainPage = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask anything"
+            disabled={loading}
             className="flex-1 p-3 bg-transparent text-white outline-none"
             onKeyDown={(e) => e.key === 'Enter' && onsent()}
           />

@@ -161,9 +161,13 @@ const ContextProvider = (props) => {
         const result = await run(userPrompt);
         setLoading(false);
         setShowResults(true);
+        
+        // Sanitize leading bullet stars (* )
+         let cleanedResult = result.replace(/^\* /gm, '&bull; '); 
+
 
         
-        const responseArray = result.split("**");
+        const responseArray = cleanedResult.split("**");
         let newResponse = "";
         
         // Handle bold text
