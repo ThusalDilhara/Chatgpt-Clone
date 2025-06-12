@@ -4,51 +4,53 @@ import ShinyText from './shinyText';
 import { account } from '../config/appwriteConfig';
 
 const Navbar = ({ isOpen }) => {
+  const [userInitial, setUserInitial] = useState('');
 
-  const [userInitial,setUserInital]=useState("");
-
-
-  useEffect(()=>{
-     const getUser=async()=>{
-        
-      try{
-        const user= account.get();
-
-        if((await user).name){
-          
-          
-          const username= (await user).name.slice(0,2).toUpperCase();
-          setUserInital(username);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const user = account.get();
+        if ((await user).name) {
+          const username = (await user).name.slice(0, 2).toUpperCase();
+          setUserInitial(username);
         }
-
-      }catch(error){
-         console.log("Error fetching user data:", error);
-         
+      } catch (error) {
+        console.log('Error fetching user data:', error);
       }
-     };
-      getUser();
-  },[]);
+    };
+    getUser();
+  }, []);
+
   return (
-    <>
-      <div className='flex justify-between items-center bg-[#282828] p-4 h-[57px] w-full fixed z-10 border-b border-[#303030]'>
-        
-        <div className={`flex font-bold text-xl transition-all duration-300 ${isOpen ? 'ml-56' : 'ml-20'}`}>
-        <h1 className="shiny-text">ChatGPT</h1>
-
+    <div className={`fixed top-0 w-full z-10 bg-[#282828] border-b border-[#303030]`}>
+      <div className="flex justify-between items-center px-4 py-3 md:h-[57px]">
+        {/* Brand */}
+        <div
+          className={`text-xl font-bold transition-all duration-300 
+            ${isOpen ? 'ml-48 md:ml-56' : 'ml-16 md:ml-20'}
+          `}
+        >
+          <h1 className="shiny-text text-white">ChatGPT</h1>
         </div>
 
-        {userInitial?
-          <div className="w-8 h-8 flex items-center justify-center rounded-full bg-pink-400  text-white text-sm font-light hover:border border-white ">
-          {userInitial}
+        {/* Avatar / User Icon */}
+        <div className="flex-shrink-0">
+          {userInitial ? (
+            <div className="w-8 h-8 flex items-center justify-center rounded-full bg-pink-400 text-white text-sm font-light hover:border border-white">
+              {userInitial}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
+              <UserCircle2
+                size={32}
+                strokeWidth={1.5}
+                className="text-[#B5B5B5] hover:text-[#929292]"
+              />
+            </div>
+          )}
         </div>
-        
-        :<div className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity">
-          <UserCircle2 size={32} strokeWidth={1.5} className="text-[#B5B5B5] hover:text-[#929292]" />
-          
-        </div>}
-
       </div>
-    </>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import { Databases, ID, Query } from 'appwrite';
 import Swal from 'sweetalert2';
 import '../index.css'
 
-export const Context = createContext();
+export const ChatContext = createContext();
 
 const ContextProvider = (props) => {
   const [input, setInput] = useState('');
@@ -241,7 +241,7 @@ const ContextProvider = (props) => {
     deleteChat
   };
 
-  return <Context.Provider value={contextValue}>{props.children}</Context.Provider>;
+  return <ChatContext.Provider value={contextValue}>{props.children}</ChatContext.Provider>;
 };
 
 export default ContextProvider;
