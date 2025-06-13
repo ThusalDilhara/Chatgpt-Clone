@@ -30,4 +30,4 @@ jobs:
       - name: Delete Old Container
         run: docker rm -f reactContainer
       - name: Run Docker container
-        run: docker run -d -p 80:80 --name reactContainer thusal123/chatgpt-clone:${{ github.sha }}
+        run: docker run -d -p 3000:80 --name reactContainer thusal123/chatgpt-clone:${{ github.sha }}
