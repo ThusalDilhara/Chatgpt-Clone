@@ -20,12 +20,12 @@ const MainPage = () => {
     <div className="h-screen bg-[#282828] w-full pt-[58px] flex flex-col">
       {!showResults ? (
         <div className="flex flex-1 items-center justify-center px-4 relative">
-          <h1 className="text-2xl md:text-4xl text-white font-semibold text-center">
+          <h1 className="text-2xl md:text-4xl text-white font-semibold text-center mb-40">
             What Can I Help With?
           </h1>
 
           {/* Input */}
-          <div className="absolute bottom-40 w-full max-w-4xl mx-auto px-4">
+          <div className="absolute bottom-50 w-full max-w-4xl mx-auto px-4">
             <div className="flex items-center border rounded-2xl border-gray-600 p-2 bg-transparent">
               <input
                 type="text"
@@ -54,7 +54,7 @@ const MainPage = () => {
                 key={index}
                 className={`p-3 rounded-2xl text-white text-sm md:text-base ${
                   chat.sender === 'user'
-                    ? 'bg-[#3c3c3c] max-w-[90%] ml-auto'
+                    ? 'bg-[#3c3c3c] max-w-[80%] ml-auto'
                     : 'bg-transparent max-w-[90%]'
                 }`}
               >
@@ -74,8 +74,9 @@ const MainPage = () => {
           </div>
 
           {/* Input */}
-          <div className="fixed bottom-8 w-full px-4">
-            <div className="max-w-4xl mx-auto border rounded-2xl border-gray-600 flex items-center bg-transparent p-2">
+         <div
+            className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-full px-4 flex justify-center md:left-[calc(50%+6rem)] md:translate-x-[-50%]">
+            <div className="w-full max-w-4xl border rounded-2xl border-gray-600 flex items-center bg-[#222222] p-2">
               <input
                 type="text"
                 value={input}
@@ -97,7 +98,7 @@ const MainPage = () => {
         </div>
       )}
 
-      <p className="text-white text-xs text-center pb-2">
+      <p className="text-white text-xs text-center pb-2 pt-4">
         ChatGPT can make mistakes. Check important info.
       </p>
     </div>
